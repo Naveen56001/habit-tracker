@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from .database import create_db_and_tables
-from .routers import users, habits
+from app.database import create_db_and_tables
+from app.routers import users, habits, logs
 
 app = FastAPI()
 
@@ -10,3 +10,4 @@ def startup_event():
 
 app.include_router(users.router)
 app.include_router(habits.router)
+app.include_router(logs.router)

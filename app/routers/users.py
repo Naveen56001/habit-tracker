@@ -34,22 +34,21 @@ def update_user(id: int, update: UpdateUser, session: SessionDep):
     user = session.get(User, id)
     if not user: 
         raise HTTPException(404, "not found")
-    if update.name: 
+    if update.name is not None: 
         user.name = update.name
-    if update.email: 
+    if update.email is not None: 
         user.email = update.email
 
     session.add(user)
     session.commit()
     session.refresh(user)
-    return user
+    return {"message": "Updation Successfull"}
 
 @router.delete("/{id}")
 def delete_user(id: int, session: SessionDep):
     user = session.get(User, id)
     if not user: 
-        raise HTTPException(404, "not found")
-    
+        raise HTTPException(404, "not found") 
     session.delete(user)
     session.commit()
     return {"ok": True}
